@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#fff2e8" />
+  <title>Good Morning, Aunties! ☀️</title>
+  <style>
+    :root {
+      --cream: #fff8ef;
+      --peach: #ffd9c8;
+      --pink: #f8a9bb;
+      --coral: #f07875;
+      --plum: #653d57;
+      --gold: #f4bd57;
+      --mint: #b9d9c3;
+    }
+    * { box-sizing: border-box; }
+    html, body { width: 100%; min-height: 100%; margin: 0; }
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      font-family: ui-rounded, "Trebuchet MS", "Segoe UI", sans-serif;
+      color: var(--plum);
+      background:
+        radial-gradient(ellipse at 12% 16%, rgba(255, 220, 180, .72), transparent 30%),
+        radial-gradient(ellipse at 86% 75%, rgba(248, 169, 187, .42), transparent 34%),
+        linear-gradient(135deg, #fff9ef 0%, #ffede7 48%, #fff5d9 100%);
+    }
+    .sky-glow {
+      position: absolute; width: 190px; height: 190px; border-radius: 50%;
+      top: 8%; right: 11%;
+      background: radial-gradient(circle, #ffe7a0 0 38%, rgba(255,231,160,.32) 39% 57%, transparent 70%);
+      animation: sun-breathe 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .sun { position: absolute; top: 13%; right: 16%; font-size: clamp(3rem, 8vw, 6rem); animation: sun-turn 28s linear infinite; }
+    .cloud { position: absolute; font-size: clamp(2.3rem, 5vw, 4rem); opacity: .72; filter: drop-shadow(0 7px 8px #d7a7a733); animation: cloud-drift 18s ease-in-out infinite alternate; pointer-events: none; }
+    .cloud.one { top: 15%; left: 9%; }
+    .cloud.two { top: 35%; right: 8%; animation-delay: -7s; font-size: clamp(2rem, 4vw, 3.2rem); }
+    .cloud.three { bottom: 18%; left: 15%; animation-delay: -11s; }
+    .headline {
+      position: absolute; top: 7%; left: 50%; transform: translateX(-50%);
+      width: 90%; text-align: center; z-index: 2;
+    }
+    .eyebrow { margin: 0 0 9px; font-size: .78rem; font-weight: 800; letter-spacing: .23em; text-transform: uppercase; color: #b56e78; }
+    h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-weight: 700; font-size: clamp(2rem, 5vw, 3.7rem); line-height: 1.08; letter-spacing: -.04em; }
+    h1 span { color: var(--coral); font-style: italic; }
+    .subtitle { margin: 12px auto 0; font-size: clamp(.9rem, 2vw, 1.08rem); color: #8b6376; }
+    .play-area { position: absolute; inset: 0; overflow: hidden; }
+    .moving-greeting {
+      position: absolute; left: 8%; top: 48%;
+      display: flex; align-items: center; gap: 13px;
+      width: max-content; max-width: 90vw;
+      padding: 17px 25px; border: 2px solid rgba(255,255,255,.92);
+      border-radius: 28px; background: rgba(255,255,255,.79);
+      box-shadow: 0 18px 45px rgba(130, 79, 96, .16), inset 0 0 0 1px rgba(248,169,187,.22);
+      backdrop-filter: blur(8px);
+      will-change: left, top, transform;
+      z-index: 4;
+      animation: bob 2.8s ease-in-out infinite;
+      user-select: none;
+    }
+    .moving-greeting .emoji { font-size: clamp(1.8rem, 4vw, 3rem); }
+    .moving-greeting .words { font-size: clamp(1.45rem, 4.4vw, 3.1rem); font-weight: 900; letter-spacing: -.045em; white-space: nowrap; }
+    .moving-greeting .words em { color: var(--coral); font-style: normal; }
+    .sparkle { position: absolute; pointer-events: none; animation: twinkle 2s ease-in-out infinite; }
+    .sparkle.s1 { top: 44%; left: 24%; font-size: 2rem; }
+    .sparkle.s2 { top: 63%; right: 22%; font-size: 1.6rem; animation-delay: .7s; }
+    .sparkle.s3 { top: 52%; right: 9%; font-size: 2.2rem; animation-delay: 1.1s; }
+    .bottom-note {
+      position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%);
+      width: max-content; max-width: 90%; text-align: center; z-index: 2;
+      color: #916b7b; font-size: clamp(.8rem, 1.8vw, .98rem);
+    }
+    .bottom-note strong { color: #c96f78; }
+    .tiny-heart { display: inline-block; color: #e98091; animation: heartbeat 1.2s ease-in-out infinite; }
+    .floating { position: absolute; font-size: clamp(1.5rem, 3vw, 2.6rem); opacity: .88; animation: float 5s ease-in-out infinite; pointer-events: none; }
+    .f1 { left: 7%; bottom: 13%; animation-delay: -.8s; }
+    .f2 { right: 12%; bottom: 13%; animation-delay: -2.2s; }
+    .f3 { left: 46%; top: 36%; animation-delay: -1.5s; font-size: 1.6rem; }
+    .f4 { right: 29%; top: 22%; animation-delay: -3s; font-size: 1.4rem; }
+    .hint { position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%); font-size: .73rem; letter-spacing: .08em; text-transform: uppercase; color: #bd8b91; white-space: nowrap; }
+    @keyframes sun-breathe { 0%,100% { transform: scale(.96); opacity: .8; } 50% { transform: scale(1.06); opacity: 1; } }
+    @keyframes sun-turn { to { transform: rotate(360deg); } }
+    @keyframes cloud-drift { from { transform: translateX(-10px); } to { transform: translateX(24px); } }
+    @keyframes bob { 0%,100% { margin-top: -5px; } 50% { margin-top: 5px; } }
+    @keyframes twinkle { 0%,100% { transform: scale(.75) rotate(0deg); opacity: .55; } 50% { transform: scale(1.15) rotate(16deg); opacity: 1; } }
+    @keyframes float { 0%,100% { transform: translateY(0) rotate(-7deg); } 50% { transform: translateY(-18px) rotate(8deg); } }
+    @keyframes heartbeat { 0%,100% { transform: scale(1); } 25% { transform: scale(1.25); } 45% { transform: scale(1); } 65% { transform: scale(1.18); } }
+    @media (max-width: 520px) {
+      .headline { top: 8%; }
+      .sky-glow { width: 130px; height: 130px; right: 0; top: 24%; }
+      .sun { right: 5%; top: 28%; }
+      .moving-greeting { gap: 8px; padding: 13px 15px; border-radius: 22px; }
+      .cloud.two { top: 43%; }
+      .hint { bottom: 12%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sky-glow" aria-hidden="true"></div>
+  <div class="sun" aria-hidden="true">☀️</div>
+  <div class="cloud one" aria-hidden="true">☁️</div>
+  <div class="cloud two" aria-hidden="true">☁️</div>
+  <div class="cloud three" aria-hidden="true">☁️</div>
+
+  <header class="headline">
+    <p class="eyebrow">A little sunshine, just for you</p>
+    <h1>Sunshine looks good<br>on <span>you.</span></h1>
+    <p class="subtitle">Sending a pocketful of happy to the loveliest aunties.</p>
+  </header>
+
+  <main class="play-area" id="playArea" aria-label="A cheerful animated morning greeting">
+    <span class="sparkle s1" aria-hidden="true">✦</span>
+    <span class="sparkle s2" aria-hidden="true">✧</span>
+    <span class="sparkle s3" aria-hidden="true">✦</span>
+    <span class="floating f1" aria-hidden="true">🌷</span>
+    <span class="floating f2" aria-hidden="true">☕</span>
+    <span class="floating f3" aria-hidden="true">💗</span>
+    <span class="floating f4" aria-hidden="true">🌼</span>
+
+    <div class="moving-greeting" id="greeting">
+      <span class="emoji" aria-hidden="true">🌸</span>
+      <span class="words">Good morning, <em>Aunties!</em></span>
+      <span class="emoji" aria-hidden="true">💕</span>
+    </div>
+  </main>
+
+  <p class="hint">Psst… the greeting is on its morning walk ↗</p>
+  <footer class="bottom-note">May your tea be hot, your worries be tiny, and your day be <strong>beautiful.</strong> <span class="tiny-heart">♥</span></footer>
+
+  <script>
+    (() => {
+      const greeting = document.getElementById('greeting');
+      const area = document.getElementById('playArea');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let x = 35, y = 48, vx = 1.15, vy = 0.62;
+      let lastTime = 0;
+      function place() {
+        const maxX = Math.max(0, area.clientWidth - greeting.offsetWidth);
+        const maxY = Math.max(0, area.clientHeight - greeting.offsetHeight);
+        x = Math.min(Math.max(0, x), maxX);
+        y = Math.min(Math.max(area.clientHeight * .28, y), Math.max(area.clientHeight * .28, maxY - 12));
+        greeting.style.left = x + 'px';
+        greeting.style.top = y + 'px';
+      }
+      function animate(time) {
+        if (!reduceMotion) {
+          const delta = Math.min((time - (lastTime || time)) / 16.67, 2);
+          lastTime = time;
+          const maxX = Math.max(0, area.clientWidth - greeting.offsetWidth);
+          const minY = area.clientHeight * .27;
+          const maxY = Math.max(minY, area.clientHeight - greeting.offsetHeight - 70);
+          x += vx * delta;
+          y += vy * delta;
+          if (x <= 0 || x >= maxX) { vx *= -1; x = Math.min(Math.max(x, 0), maxX); }
+          if (y <= minY || y >= maxY) { vy *= -1; y = Math.min(Math.max(y, minY), maxY); }
+          greeting.style.left = x + 'px';
+          greeting.style.top = y + 'px';
+        } else {
+          greeting.style.left = '50%';
+          greeting.style.top = '52%';
+          greeting.style.transform = 'translateX(-50%)';
+        }
+        requestAnimationFrame(animate);
+      }
+      place();
+      window.addEventListener('resize', place);
+      requestAnimationFrame(animate);
+    })();
+  </script>
+</body>
+</html>
